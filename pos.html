@@ -94,6 +94,12 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #111827; c
 }
 .qty-num { font-size: 0.85rem; min-width: 18px; text-align: center; }
 .cart-item-sub { font-size: 0.8rem; color: #34d399; font-weight: 700; }
+.cart-item-sub.gift { color: #f472b6; text-decoration: line-through; }
+.btn-gift {
+  font-size: 0.68rem; font-weight: 700; padding: 2px 6px; border-radius: 5px; cursor: pointer;
+  border: 1px solid #475569; background: none; color: #64748b; white-space: nowrap;
+}
+.btn-gift.active { background: #4a0d2e; border-color: #f472b6; color: #f472b6; }
 .cart-footer { padding: 10px 12px; border-top: 1px solid #334155; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
 .disc-label { font-size: 0.72rem; color: #64748b; font-weight: 700; }
 .disc-row { display: flex; gap: 5px; }
@@ -647,7 +653,8 @@ function renderCart() {
             <span class="qty-num">${c.qty}</span>
             <button class="qty-btn" onclick="changeQty(${i},1)">＋</button>
           </div>
-          <span class="cart-item-sub">$${c.price * c.qty}</span>
+          <button class="btn-gift ${c.isGift ? 'active' : ''}" onclick="toggleGift(${i})">贈品</button>
+          <span class="cart-item-sub ${c.isGift ? 'gift' : ''}">${c.isGift ? '$0' : '$' + c.price * c.qty}</span>
         </div>
       </div>`).join('')
     : '<div class="cart-empty">尚無商品</div>';
@@ -661,7 +668,9 @@ function setDiscType(t) {
   updateTotal();
 }
 
-function subtotal() { return CART.reduce((s, c) => s + c.price * c.qty, 0); }
+function toggleGift(i) { CART[i].isGift = !CART[i].isGift; renderCart(); }
+
+function subtotal() { return CART.reduce((s, c) => c.isGift ? s : s + c.price * c.qty, 0); }
 function discountAmt(sub) {
   const d = Number(document.getElementById('disc-input').value) || 0;
   if (discType === 'pct') return Math.round(sub * d / 100);
@@ -700,7 +709,7 @@ async function confirmCheckout() {
   try {
     await apiPost({
       action: 'saveOrder',
-      order: { items: CART.map(c => ({ name: c.name, price: c.price, qty: c.qty })), discount: disc, total: tot }
+      order: { items: CART.map(c => ({ name: c.name, price: c.isGift ? 0 : c.price, qty: c.qty, gift: !!c.isGift })), discount: disc, total: tot }
     });
     // 更新本機庫存顯示
     CART.forEach(cartItem => {
