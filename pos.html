@@ -756,7 +756,10 @@ function renderAdminProducts() {
     list.innerHTML = '<div class="loading-msg">尚無商品，請在下方新增</div>';
     return;
   }
-  list.innerHTML = products.map((p, i) => `
+  list.innerHTML = products.map((p, i) => {
+    const unlimited = p.unlimited === true;
+    const stock = (p.stock == null || isNaN(p.stock)) ? 0 : Number(p.stock);
+    return `
     <div class="product-row">
       <div class="product-row-info">
         <div class="product-row-name">${esc(p.name)}</div>
@@ -764,13 +767,14 @@ function renderAdminProducts() {
       </div>
       <span class="product-row-price">$${p.price}</span>
       <div class="stock-display">
-        <button class="stock-adj-btn" onclick="adjustStock(${i},-1)" ${p.unlimited ? 'disabled' : ''}>−</button>
-        <span class="stock-num ${stockNumClass(p.stock, p.unlimited)}">${p.unlimited ? '∞' : p.stock}</span>
-        <button class="stock-adj-btn" onclick="adjustStock(${i},1)" ${p.unlimited ? 'disabled' : ''}>＋</button>
+        <button class="stock-adj-btn" onclick="adjustStock(${i},-1)" ${unlimited ? 'disabled' : ''}>−</button>
+        <span class="stock-num ${stockNumClass(stock, unlimited)}">${unlimited ? '∞' : stock}</span>
+        <button class="stock-adj-btn" onclick="adjustStock(${i},1)" ${unlimited ? 'disabled' : ''}>＋</button>
       </div>
       <button class="btn-edit" onclick="startEdit(${i})">編輯</button>
       <button class="btn-del" onclick="deleteProduct(${i})" title="刪除">✕</button>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 async function adjustStock(i, delta) {
