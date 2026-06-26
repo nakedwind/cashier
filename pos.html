@@ -69,9 +69,9 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #111827; c
   font-size: 0.65rem; font-weight: 700; padding: 1px 6px; border-radius: 8px;
   margin-top: 1px;
 }
-.stock-ok   { background: #14532d; color: #4ade80; }
-.stock-low  { background: #78350f; color: #fbbf24; }
-.stock-zero { background: #3f1212; color: #f87171; }
+.stock-ok   { background: #14532d; color: #ffffff; }
+.stock-low  { background: #78350f; color: #ffffff; }
+.stock-zero { background: #3f1212; color: #ffffff; }
 
 /* 購物車 */
 .cart-panel {
@@ -568,9 +568,9 @@ async function loadProducts() {
 }
 
 function stockBadge(stock, unlimited) {
-  if (unlimited) return '';
-  if (stock <= 0)  return `<span class="stock-badge stock-zero">售完</span>`;
-  if (stock <= 5)  return `<span class="stock-badge stock-low">剩 ${stock}</span>`;
+  if (unlimited || stock == null || isNaN(stock)) return '';
+  if (stock <= 0) return `<span class="stock-badge stock-zero">售完</span>`;
+  if (stock <= 5) return `<span class="stock-badge stock-low">剩 ${stock}</span>`;
   return `<span class="stock-badge stock-ok">庫存 ${stock}</span>`;
 }
 
