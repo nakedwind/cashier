@@ -299,11 +299,11 @@ canvas { display: block; width: 100% !important; }
   <p>第一次使用，請填入 Google Apps Script 的網址，以及設定你的店名和後台密碼。</p>
   <div class="setup-card">
     <label>Apps Script 網址</label>
-    <input type="url" id="setup-url" placeholder="https://script.google.com/macros/s/..." autocomplete="off" />
+    <input type="url" id="setup-url" autocomplete="off" value="https://script.google.com/macros/s/AKfycbwzrJJ53yCl-rFgMQBMvSLNfHj-yp0J256YoUqe1lPbziZcn1QvEnPOzL5o-oc9YPWbEA/exec" />
     <label>店名</label>
-    <input type="text" id="setup-store" placeholder="例如：小花手作坊" />
+    <input type="text" id="setup-store" value="天然風收銀機" />
     <label>後台密碼（自己設定）</label>
-    <input type="password" id="setup-pw" placeholder="至少 4 個字" autocomplete="new-password" />
+    <input type="password" id="setup-pw" autocomplete="new-password" value="0000" />
     <button class="btn-primary" onclick="setupSave()">開始使用 →</button>
   </div>
 </div>
