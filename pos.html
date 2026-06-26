@@ -29,8 +29,7 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #111827; c
 .setup-card input:focus { border-color: #34d399; }
 .btn-primary {
   background: #34d399; color: #0f172a; border: none; border-radius: 9px;
-  padding: 14px; font-size: 1rem; font-weight: 700; cursor: pointer;
-  margin-top: 6px; transition: opacity 0.15s;
+  padding: 14px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 6px;
 }
 .btn-primary:active { opacity: 0.8; }
 
@@ -38,8 +37,7 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #111827; c
 #screen-main { display: none; height: 100%; flex-direction: column; }
 .top-bar {
   background: #1e293b; padding: 10px 16px; display: flex; align-items: center;
-  justify-content: space-between; flex-shrink: 0; border-bottom: 1px solid #334155;
-  gap: 10px;
+  justify-content: space-between; flex-shrink: 0; border-bottom: 1px solid #334155; gap: 10px;
 }
 .store-name { font-size: 1.05rem; font-weight: 700; color: #34d399; flex: 1; }
 .top-clock { font-size: 0.8rem; color: #64748b; white-space: nowrap; }
@@ -48,7 +46,6 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #111827; c
   border-radius: 7px; padding: 7px 13px; font-size: 0.82rem; cursor: pointer; white-space: nowrap;
 }
 .btn-admin:active { opacity: 0.7; }
-
 .main-body { flex: 1; display: flex; overflow: hidden; }
 
 /* 商品區 */
@@ -60,23 +57,28 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #111827; c
 .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
 .product-btn {
   background: #1e293b; border: 1px solid #334155; border-radius: 10px;
-  padding: 12px 8px; text-align: center; cursor: pointer; user-select: none;
-  display: flex; flex-direction: column; gap: 5px; align-items: center;
-  transition: background 0.1s, border-color 0.1s; min-height: 68px;
+  padding: 10px 8px 8px; text-align: center; cursor: pointer; user-select: none;
+  display: flex; flex-direction: column; gap: 4px; align-items: center;
+  transition: background 0.1s, border-color 0.1s; min-height: 72px; position: relative;
 }
-.product-btn:active { background: #0f3460; border-color: #34d399; }
+.product-btn:active:not(:disabled) { background: #0f3460; border-color: #34d399; }
+.product-btn:disabled { background: #1a1f2e; border-color: #1e293b; cursor: not-allowed; opacity: 0.5; }
 .product-btn .pname { font-size: 0.85rem; font-weight: 600; line-height: 1.3; word-break: break-all; }
 .product-btn .pprice { font-size: 0.95rem; color: #34d399; font-weight: 700; }
+.stock-badge {
+  font-size: 0.65rem; font-weight: 700; padding: 1px 6px; border-radius: 8px;
+  margin-top: 1px;
+}
+.stock-ok   { background: #14532d; color: #4ade80; }
+.stock-low  { background: #78350f; color: #fbbf24; }
+.stock-zero { background: #3f1212; color: #f87171; }
 
 /* 購物車 */
 .cart-panel {
   width: 195px; background: #1e293b; border-left: 1px solid #334155;
   display: flex; flex-direction: column; flex-shrink: 0;
 }
-.cart-title {
-  padding: 11px 13px; font-size: 0.88rem; font-weight: 700; color: #94a3b8;
-  border-bottom: 1px solid #334155; flex-shrink: 0;
-}
+.cart-title { padding: 11px 13px; font-size: 0.88rem; font-weight: 700; color: #94a3b8; border-bottom: 1px solid #334155; flex-shrink: 0; }
 .cart-items { flex: 1; overflow-y: auto; padding: 8px; display: flex; flex-direction: column; gap: 6px; }
 .cart-empty { color: #4b5563; font-size: 0.8rem; text-align: center; padding: 24px 8px; }
 .cart-item { background: #0f172a; border-radius: 8px; padding: 8px 9px; display: flex; flex-direction: column; gap: 5px; }
@@ -92,7 +94,6 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #111827; c
 }
 .qty-num { font-size: 0.85rem; min-width: 18px; text-align: center; }
 .cart-item-sub { font-size: 0.8rem; color: #34d399; font-weight: 700; }
-
 .cart-footer { padding: 10px 12px; border-top: 1px solid #334155; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
 .disc-label { font-size: 0.72rem; color: #64748b; font-weight: 700; }
 .disc-row { display: flex; gap: 5px; }
@@ -112,7 +113,6 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #111827; c
 .btn-checkout {
   background: #34d399; color: #0f172a; border: none; border-radius: 9px;
   padding: 13px; font-size: 0.95rem; font-weight: 700; cursor: pointer;
-  transition: opacity 0.15s;
 }
 .btn-checkout:active { opacity: 0.8; }
 .btn-checkout:disabled { background: #334155; color: #64748b; cursor: not-allowed; }
@@ -132,7 +132,7 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #111827; c
 .admin-tabs { display: flex; background: #1e293b; border-bottom: 1px solid #334155; flex-shrink: 0; }
 .tab-btn {
   flex: 1; padding: 11px 4px; border: none; background: none; color: #64748b;
-  font-size: 0.82rem; cursor: pointer; border-bottom: 2px solid transparent; transition: color 0.15s;
+  font-size: 0.82rem; cursor: pointer; border-bottom: 2px solid transparent;
 }
 .tab-btn.active { color: #34d399; border-bottom-color: #34d399; }
 .tab-content { display: none; flex: 1; overflow-y: auto; padding: 14px; }
@@ -163,13 +163,30 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #111827; c
 .product-row-info { flex: 1; }
 .product-row-name { font-weight: 600; font-size: 0.9rem; }
 .product-row-cat { font-size: 0.72rem; color: #64748b; margin-top: 1px; }
-.product-row-price { color: #34d399; font-weight: 700; font-size: 0.95rem; margin-right: 4px; }
+.product-row-price { color: #34d399; font-weight: 700; font-size: 0.95rem; }
+
+/* 庫存顯示 */
+.stock-display {
+  display: flex; align-items: center; gap: 5px; background: #0f172a;
+  border-radius: 7px; padding: 4px 6px; border: 1px solid #334155;
+}
+.stock-num { font-size: 0.8rem; font-weight: 700; min-width: 28px; text-align: center; }
+.stock-num.ok   { color: #4ade80; }
+.stock-num.low  { color: #fbbf24; }
+.stock-num.zero { color: #f87171; }
+.stock-num.inf  { color: #64748b; }
+.stock-adj-btn {
+  width: 20px; height: 20px; border-radius: 4px; border: none;
+  background: #1e293b; color: #94a3b8; cursor: pointer; font-size: 0.9rem;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.stock-adj-btn:active { background: #334155; }
+
 .btn-edit {
   background: #0f3460; border: 1px solid #334155; color: #60a5fa;
   border-radius: 5px; padding: 5px 10px; cursor: pointer; font-size: 0.78rem;
 }
 .btn-del { background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1.05rem; padding: 2px 4px; }
-.inactive-badge { font-size: 0.65rem; background: #374151; color: #9ca3af; border-radius: 3px; padding: 1px 5px; }
 
 .add-form {
   background: #1e293b; border-radius: 10px; padding: 14px;
@@ -182,6 +199,7 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #111827; c
   background: #0f172a; color: #f1f5f9; font-size: 0.88rem; outline: none;
 }
 .form-input:focus { border-color: #34d399; }
+.form-hint { font-size: 0.72rem; color: #64748b; }
 .form-btns { display: flex; gap: 7px; }
 .btn-save { background: #34d399; color: #0f172a; border: none; border-radius: 7px; padding: 10px 16px; font-weight: 700; cursor: pointer; font-size: 0.88rem; }
 .btn-save:active { opacity: 0.8; }
@@ -192,7 +210,6 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #111827; c
   padding: 7px 10px; border-radius: 6px; border: 1px solid #334155;
   background: #1e293b; color: #f1f5f9; font-size: 0.83rem; outline: none;
 }
-.filter-input:focus { border-color: #34d399; }
 .order-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
 .order-table th { padding: 7px 6px; text-align: left; color: #64748b; border-bottom: 1px solid #334155; font-weight: 700; font-size: 0.73rem; text-transform: uppercase; }
 .order-table td { padding: 7px 6px; border-bottom: 1px solid #1e293b; vertical-align: top; }
@@ -210,6 +227,16 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #111827; c
 .chart-box-title { font-size: 0.78rem; color: #64748b; margin-bottom: 10px; font-weight: 700; }
 canvas { display: block; width: 100% !important; }
 .stats-reload { background: none; border: 1px solid #334155; color: #64748b; border-radius: 6px; padding: 5px 10px; font-size: 0.76rem; cursor: pointer; }
+
+/* 低庫存警告區 */
+.low-stock-section { margin-bottom: 14px; }
+.low-stock-title { font-size: 0.78rem; color: #fbbf24; font-weight: 700; margin-bottom: 8px; }
+.low-stock-list { display: flex; flex-direction: column; gap: 5px; }
+.low-stock-item {
+  background: #1c1506; border: 1px solid #78350f; border-radius: 7px;
+  padding: 8px 11px; display: flex; justify-content: space-between; font-size: 0.82rem;
+}
+.low-stock-item span { color: #fbbf24; font-weight: 700; }
 
 /* ─── 結帳彈窗 ─── */
 .overlay {
@@ -243,7 +270,6 @@ canvas { display: block; width: 100% !important; }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .toast.error { background: #ef4444; color: #fff; }
 
-/* 載入中 */
 .loading-msg { color: #64748b; text-align: center; padding: 32px; font-size: 0.88rem; }
 
 /* ─── 響應式 ─── */
@@ -261,7 +287,7 @@ canvas { display: block; width: 100% !important; }
 </head>
 <body>
 
-<!-- 設定畫面（第一次使用） -->
+<!-- 設定畫面 -->
 <div id="screen-setup">
   <h1>收銀機設定</h1>
   <p>第一次使用，請填入 Google Apps Script 的網址，以及設定你的店名和後台密碼。</p>
@@ -269,7 +295,7 @@ canvas { display: block; width: 100% !important; }
     <label>Apps Script 網址</label>
     <input type="url" id="setup-url" placeholder="https://script.google.com/macros/s/..." autocomplete="off" />
     <label>店名</label>
-    <input type="text" id="setup-store" placeholder="例如：小花手作坊" value="" />
+    <input type="text" id="setup-store" placeholder="例如：小花手作坊" />
     <label>後台密碼（自己設定）</label>
     <input type="password" id="setup-pw" placeholder="至少 4 個字" autocomplete="new-password" />
     <button class="btn-primary" onclick="setupSave()">開始使用 →</button>
@@ -311,7 +337,6 @@ canvas { display: block; width: 100% !important; }
 
 <!-- 後台畫面 -->
 <div id="screen-admin">
-  <!-- 密碼登入 -->
   <div id="admin-login">
     <h2>後台管理</h2>
     <div class="pw-form">
@@ -321,7 +346,6 @@ canvas { display: block; width: 100% !important; }
       <button class="btn-back" onclick="goMain()">← 返回收銀</button>
     </div>
   </div>
-  <!-- 後台主體 -->
   <div id="admin-panel" style="display:none;height:100%;flex-direction:column;">
     <div class="admin-bar">
       <button class="btn-back" onclick="goMain()">← 收銀</button>
@@ -346,6 +370,14 @@ canvas { display: block; width: 100% !important; }
           <input class="form-input" id="f-price" type="number" placeholder="價格" min="0" style="max-width:100px;" />
           <input class="form-input" id="f-cat" placeholder="分類（可不填）" />
         </div>
+        <div class="form-row">
+          <input class="form-input" id="f-stock" type="number" placeholder="庫存數量" min="0" style="max-width:120px;" />
+          <div style="flex:1;display:flex;align-items:center;gap:6px;">
+            <input type="checkbox" id="f-unlimited" onchange="toggleUnlimited()" style="width:16px;height:16px;cursor:pointer;" />
+            <label for="f-unlimited" style="font-size:0.82rem;color:#94a3b8;cursor:pointer;">不追蹤庫存</label>
+          </div>
+        </div>
+        <div class="form-hint">「不追蹤庫存」適合服務類商品，不受庫存數量限制</div>
         <div class="form-btns">
           <button class="btn-save" onclick="saveProduct()">儲存</button>
           <button class="btn-back" id="btn-cancel-edit" style="display:none;" onclick="cancelEdit()">取消編輯</button>
@@ -359,9 +391,7 @@ canvas { display: block; width: 100% !important; }
         <button class="btn-back" onclick="clearDateFilter()">清除篩選</button>
         <button class="stats-reload" onclick="loadOrders()">重新整理</button>
       </div>
-      <div id="orders-container">
-        <div class="loading-msg">載入中…</div>
-      </div>
+      <div id="orders-container"><div class="loading-msg">載入中…</div></div>
     </div>
     <!-- Tab：統計 -->
     <div class="tab-content" id="tab-stats">
@@ -379,6 +409,11 @@ canvas { display: block; width: 100% !important; }
           <div class="s-value" id="stat-month">—</div>
           <div class="s-sub" id="stat-month-n">—</div>
         </div>
+      </div>
+      <!-- 低庫存警告 -->
+      <div class="low-stock-section" id="low-stock-section" style="display:none;">
+        <div class="low-stock-title">⚠ 庫存偏低</div>
+        <div class="low-stock-list" id="low-stock-list"></div>
       </div>
       <div class="chart-box">
         <div class="chart-box-title">近 14 天每日營收</div>
@@ -400,7 +435,6 @@ canvas { display: block; width: 100% !important; }
   </div>
 </div>
 
-<!-- Toast 通知 -->
 <div class="toast" id="toast"></div>
 
 <script>
@@ -410,7 +444,7 @@ canvas { display: block; width: 100% !important; }
 let SCRIPT_URL = '';
 let STORE_NAME = '我的小店';
 let ADMIN_PW   = '';
-let products   = [];
+let products   = [];   // 含庫存資訊
 let orders     = [];
 let discType   = 'pct';
 let editingRowNum = null;
@@ -423,11 +457,8 @@ function init() {
   SCRIPT_URL = localStorage.getItem('pos_url')   || '';
   STORE_NAME = localStorage.getItem('pos_store') || '我的小店';
   ADMIN_PW   = localStorage.getItem('pos_pw')    || '';
-  if (!SCRIPT_URL || !ADMIN_PW) {
-    show('screen-setup');
-  } else {
-    goMain();
-  }
+  if (!SCRIPT_URL || !ADMIN_PW) { show('screen-setup'); }
+  else { goMain(); }
   setInterval(updateClock, 1000);
   updateClock();
 }
@@ -436,11 +467,11 @@ function setupSave() {
   const url   = document.getElementById('setup-url').value.trim();
   const store = document.getElementById('setup-store').value.trim() || '我的小店';
   const pw    = document.getElementById('setup-pw').value;
-  if (!url)      { showToast('請填入 Apps Script 網址', true); return; }
+  if (!url)          { showToast('請填入 Apps Script 網址', true); return; }
   if (pw.length < 4) { showToast('密碼至少 4 個字', true); return; }
-  localStorage.setItem('pos_url',   url);
+  localStorage.setItem('pos_url', url);
   localStorage.setItem('pos_store', store);
-  localStorage.setItem('pos_pw',    pw);
+  localStorage.setItem('pos_pw', pw);
   SCRIPT_URL = url; STORE_NAME = store; ADMIN_PW = pw;
   goMain();
 }
@@ -491,9 +522,6 @@ function switchTab(name) {
   document.getElementById('tab-' + name).classList.add('active');
 }
 
-// ══════════════════════════════════════════════════════════
-//  時鐘
-// ══════════════════════════════════════════════════════════
 function updateClock() {
   const el = document.getElementById('top-clock');
   if (el) el.textContent = new Date().toLocaleTimeString('zh-TW');
@@ -533,6 +561,13 @@ async function loadProducts() {
   }
 }
 
+function stockBadge(stock, unlimited) {
+  if (unlimited) return '';
+  if (stock <= 0)  return `<span class="stock-badge stock-zero">售完</span>`;
+  if (stock <= 5)  return `<span class="stock-badge stock-low">剩 ${stock}</span>`;
+  return `<span class="stock-badge stock-ok">庫存 ${stock}</span>`;
+}
+
 function renderProducts() {
   const area = document.getElementById('product-area');
   if (!products.length) {
@@ -554,10 +589,12 @@ function renderProducts() {
     const grid = document.createElement('div');
     grid.className = 'product-grid';
     items.forEach(p => {
+      const outOfStock = !p.unlimited && p.stock <= 0;
       const btn = document.createElement('button');
       btn.className = 'product-btn';
-      btn.innerHTML = `<span class="pname">${esc(p.name)}</span><span class="pprice">$${p.price}</span>`;
-      btn.onclick = () => addToCart(p);
+      btn.disabled = outOfStock;
+      btn.innerHTML = `<span class="pname">${esc(p.name)}</span><span class="pprice">$${p.price}</span>${stockBadge(p.stock, p.unlimited)}`;
+      if (!outOfStock) btn.onclick = () => addToCart(p);
       grid.appendChild(btn);
     });
     area.appendChild(grid);
@@ -569,21 +606,31 @@ function renderProducts() {
 // ══════════════════════════════════════════════════════════
 function addToCart(p) {
   const found = CART.find(c => c.name === p.name && c.price == p.price);
-  if (found) found.qty++;
-  else CART.push({ name: p.name, price: Number(p.price), qty: 1 });
+  if (found) {
+    // 檢查庫存上限
+    if (!p.unlimited && found.qty >= p.stock) {
+      showToast(`「${p.name}」庫存只剩 ${p.stock} 個`, true);
+      return;
+    }
+    found.qty++;
+  } else {
+    CART.push({ name: p.name, price: Number(p.price), qty: 1, unlimited: p.unlimited, stock: p.stock });
+  }
   renderCart();
 }
 
 function changeQty(i, d) {
-  CART[i].qty += d;
-  if (CART[i].qty <= 0) CART.splice(i, 1);
+  const item = CART[i];
+  if (d > 0 && !item.unlimited && item.qty >= item.stock) {
+    showToast(`「${item.name}」庫存只剩 ${item.stock} 個`, true);
+    return;
+  }
+  item.qty += d;
+  if (item.qty <= 0) CART.splice(i, 1);
   renderCart();
 }
 
-function removeItem(i) {
-  CART.splice(i, 1);
-  renderCart();
-}
+function removeItem(i) { CART.splice(i, 1); renderCart(); }
 
 function renderCart() {
   const el = document.getElementById('cart-items');
@@ -620,10 +667,8 @@ function discountAmt(sub) {
   if (discType === 'pct') return Math.round(sub * d / 100);
   return Math.min(d, sub);
 }
-
 function updateTotal() {
-  const total = subtotal() - discountAmt(subtotal());
-  document.getElementById('total-display').textContent = '$' + total;
+  document.getElementById('total-display').textContent = '$' + (subtotal() - discountAmt(subtotal()));
   document.getElementById('btn-checkout').disabled = CART.length === 0;
 }
 
@@ -644,31 +689,34 @@ function openCheckout() {
   document.getElementById('checkout-overlay').classList.add('show');
 }
 
-function closeCheckout() {
-  document.getElementById('checkout-overlay').classList.remove('show');
-}
+function closeCheckout() { document.getElementById('checkout-overlay').classList.remove('show'); }
 
 async function confirmCheckout() {
   const sub  = subtotal();
   const disc = discountAmt(sub);
   const tot  = sub - disc;
-  document.getElementById('btn-confirm').disabled = true;
-  document.getElementById('btn-confirm').textContent = '處理中…';
+  const btn  = document.getElementById('btn-confirm');
+  btn.disabled = true; btn.textContent = '處理中…';
   try {
     await apiPost({
       action: 'saveOrder',
       order: { items: CART.map(c => ({ name: c.name, price: c.price, qty: c.qty })), discount: disc, total: tot }
     });
+    // 更新本機庫存顯示
+    CART.forEach(cartItem => {
+      const p = products.find(x => x.name === cartItem.name);
+      if (p && !p.unlimited) p.stock = Math.max(0, p.stock - cartItem.qty);
+    });
     closeCheckout();
     CART.length = 0;
     document.getElementById('disc-input').value = '';
     renderCart();
+    renderProducts();
     showToast('結帳成功！已記錄到試算表');
   } catch {
     showToast('結帳失敗，請檢查網路', true);
   } finally {
-    document.getElementById('btn-confirm').disabled = false;
-    document.getElementById('btn-confirm').textContent = '確認收款';
+    btn.disabled = false; btn.textContent = '確認收款';
   }
 }
 
@@ -686,6 +734,13 @@ async function loadAdminProducts() {
   }
 }
 
+function stockNumClass(stock, unlimited) {
+  if (unlimited) return 'inf';
+  if (stock <= 0) return 'zero';
+  if (stock <= 5) return 'low';
+  return 'ok';
+}
+
 function renderAdminProducts() {
   const list = document.getElementById('admin-product-list');
   if (!products.length) {
@@ -695,13 +750,37 @@ function renderAdminProducts() {
   list.innerHTML = products.map((p, i) => `
     <div class="product-row">
       <div class="product-row-info">
-        <div class="product-row-name">${esc(p.name)} ${!p.active ? '<span class="inactive-badge">停用</span>' : ''}</div>
+        <div class="product-row-name">${esc(p.name)}</div>
         <div class="product-row-cat">${esc(p.category || '一般')}</div>
       </div>
       <span class="product-row-price">$${p.price}</span>
+      <div class="stock-display">
+        <button class="stock-adj-btn" onclick="adjustStock(${i},-1)" ${p.unlimited ? 'disabled' : ''}>−</button>
+        <span class="stock-num ${stockNumClass(p.stock, p.unlimited)}">${p.unlimited ? '∞' : p.stock}</span>
+        <button class="stock-adj-btn" onclick="adjustStock(${i},1)" ${p.unlimited ? 'disabled' : ''}>＋</button>
+      </div>
       <button class="btn-edit" onclick="startEdit(${i})">編輯</button>
       <button class="btn-del" onclick="deleteProduct(${i})" title="刪除">✕</button>
     </div>`).join('');
+}
+
+async function adjustStock(i, delta) {
+  const p = products[i];
+  if (p.unlimited) return;
+  const newStock = Math.max(0, p.stock + delta);
+  try {
+    await apiPost({ action: 'updateProduct', rowNum: p.rowNum, product: { name: p.name, price: p.price, category: p.category, active: p.active, stock: newStock, unlimited: false } });
+    p.stock = newStock;
+    renderAdminProducts();
+  } catch {
+    showToast('更新失敗', true);
+  }
+}
+
+function toggleUnlimited() {
+  const checked = document.getElementById('f-unlimited').checked;
+  document.getElementById('f-stock').disabled = checked;
+  if (checked) document.getElementById('f-stock').value = '';
 }
 
 function startEdit(i) {
@@ -710,6 +789,9 @@ function startEdit(i) {
   document.getElementById('f-name').value  = p.name;
   document.getElementById('f-price').value = p.price;
   document.getElementById('f-cat').value   = p.category || '';
+  document.getElementById('f-unlimited').checked = p.unlimited;
+  document.getElementById('f-stock').value = p.unlimited ? '' : p.stock;
+  document.getElementById('f-stock').disabled = p.unlimited;
   document.getElementById('form-title').textContent = '編輯商品';
   document.getElementById('btn-cancel-edit').style.display = 'inline-block';
   document.querySelector('.add-form').scrollIntoView({ behavior: 'smooth' });
@@ -720,22 +802,27 @@ function cancelEdit() {
   document.getElementById('f-name').value  = '';
   document.getElementById('f-price').value = '';
   document.getElementById('f-cat').value   = '';
+  document.getElementById('f-stock').value = '';
+  document.getElementById('f-unlimited').checked = false;
+  document.getElementById('f-stock').disabled = false;
   document.getElementById('form-title').textContent = '新增商品';
   document.getElementById('btn-cancel-edit').style.display = 'none';
 }
 
 async function saveProduct() {
-  const name  = document.getElementById('f-name').value.trim();
-  const price = Number(document.getElementById('f-price').value);
-  const cat   = document.getElementById('f-cat').value.trim() || '一般';
-  if (!name)       { showToast('請填入商品名稱', true); return; }
+  const name      = document.getElementById('f-name').value.trim();
+  const price     = Number(document.getElementById('f-price').value);
+  const cat       = document.getElementById('f-cat').value.trim() || '一般';
+  const unlimited = document.getElementById('f-unlimited').checked;
+  const stock     = unlimited ? -1 : Number(document.getElementById('f-stock').value || 0);
+  if (!name)                  { showToast('請填入商品名稱', true); return; }
   if (isNaN(price) || price < 0) { showToast('請填入正確價格', true); return; }
   try {
     if (editingRowNum != null) {
-      await apiPost({ action: 'updateProduct', rowNum: editingRowNum, product: { name, price, category: cat, active: true } });
+      await apiPost({ action: 'updateProduct', rowNum: editingRowNum, product: { name, price, category: cat, active: true, stock, unlimited } });
       showToast('商品已更新');
     } else {
-      await apiPost({ action: 'saveProduct', product: { name, price, category: cat } });
+      await apiPost({ action: 'saveProduct', product: { name, price, category: cat, stock, unlimited } });
       showToast('商品已新增');
     }
     cancelEdit();
@@ -775,7 +862,8 @@ function renderOrders() {
   const dateFilter = document.getElementById('filter-date').value;
   let list = orders;
   if (dateFilter) {
-    list = orders.filter(o => String(o.date).startsWith(dateFilter.replace(/-/g, '/')));
+    const df = dateFilter.replace(/-/g, '/');
+    list = orders.filter(o => String(o.date).startsWith(df));
   }
   if (!list.length) {
     document.getElementById('orders-container').innerHTML = '<div class="orders-empty">沒有符合的紀錄</div>';
@@ -787,7 +875,7 @@ function renderOrders() {
       <tbody>${list.map(o => `
         <tr>
           <td>${String(o.date).substring(0,16)}</td>
-          <td><span class="order-items-str">${esc(o.items)}</span></td>
+          <td><span class="order-items-str">${esc(String(o.items))}</span></td>
           <td>${Number(o.discount) > 0 ? '-$' + o.discount : '—'}</td>
           <td class="order-total">$${o.total}</td>
         </tr>`).join('')}
@@ -804,12 +892,15 @@ function clearDateFilter() {
 //  後台：統計
 // ══════════════════════════════════════════════════════════
 async function loadStats() {
-  document.getElementById('stat-today').textContent = '—';
-  document.getElementById('stat-month').textContent = '—';
   try {
-    const data = await apiGet({ action: 'getOrders' });
-    orders = data.orders || [];
+    const [ordersData, productsData] = await Promise.all([
+      apiGet({ action: 'getOrders' }),
+      apiGet({ action: 'getProducts' })
+    ]);
+    orders = ordersData.orders || [];
+    products = productsData.products || [];
     calcStats();
+    showLowStock();
   } catch {
     showToast('統計載入失敗', true);
   }
@@ -845,6 +936,17 @@ function calcStats() {
   drawChart(days);
 }
 
+function showLowStock() {
+  const low = products.filter(p => p.active && !p.unlimited && p.stock <= 5 && p.stock >= 0);
+  const sec  = document.getElementById('low-stock-section');
+  const list = document.getElementById('low-stock-list');
+  if (!low.length) { sec.style.display = 'none'; return; }
+  sec.style.display = 'block';
+  list.innerHTML = low.map(p =>
+    `<div class="low-stock-item">${esc(p.name)}<span>${p.stock <= 0 ? '售完' : '剩 ' + p.stock + ' 個'}</span></div>`
+  ).join('');
+}
+
 function drawChart(days) {
   const canvas = document.getElementById('chart-canvas');
   const ctx = canvas.getContext('2d');
@@ -854,13 +956,11 @@ function drawChart(days) {
   canvas.width = W * dpr; canvas.height = H * dpr;
   canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
   ctx.scale(dpr, dpr);
-
   const vals = Object.values(days);
   const keys = Object.keys(days);
   const maxV = Math.max(...vals, 1);
   const padB = 34, padT = 12;
   const bw = (W - 16) / vals.length;
-
   ctx.clearRect(0, 0, W, H);
   vals.forEach((v, i) => {
     const bh = v > 0 ? ((v / maxV) * (H - padB - padT)) : 2;
@@ -887,7 +987,6 @@ function drawChart(days) {
 function esc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
-
 let toastTimer;
 function showToast(msg, isError = false) {
   const el = document.getElementById('toast');
@@ -898,7 +997,6 @@ function showToast(msg, isError = false) {
   toastTimer = setTimeout(() => el.classList.remove('show'), 2600);
 }
 
-// ── 啟動 ──
 init();
 </script>
 </body>
