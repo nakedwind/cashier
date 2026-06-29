@@ -522,22 +522,19 @@ function renderProducts() {
 // ══════════════════════════════════════════════════════════
 //  購物車
 // ══════════════════════════════════════════════════════════
-// 音效（Web Audio API，不需外部檔案）
-const _ac = new (window.AudioContext || window.webkitAudioContext)();
-function playClick() {
-  try {
-    const o = _ac.createOscillator();
-    const g = _ac.createGain();
-    o.connect(g); g.connect(_ac.destination);
-    o.type = 'sine';
-    o.frequency.setValueAtTime(880, _ac.currentTime);
-    o.frequency.exponentialRampToValueAtTime(440, _ac.currentTime + 0.08);
-    g.gain.setValueAtTime(0.25, _ac.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001, _ac.currentTime + 0.12);
-    o.start(_ac.currentTime);
-    o.stop(_ac.currentTime + 0.12);
-  } catch {}
-}
+// 音效
+const _sfxBtn   = new Audio('music/按紐.mp3');
+const _sfxMoney = new Audio('music/金錢.mp3');
+function playClick() { try { _sfxBtn.currentTime=0; _sfxBtn.play(); } catch {} }
+function playMoney()  { try { _sfxMoney.currentTime=0; _sfxMoney.play(); } catch {} }
+
+// 所有按鈕點擊都播按紐音效（結帳確認例外，用金錢音效）
+document.addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn || btn.disabled) return;
+  if (btn.id === 'btn-confirm') { playMoney(); return; }
+  if (!btn.classList.contains('product-btn')) playClick();
+});
 
 function addToCart(p, btnEl) {
   const found = CART.find(c => c.id === p.id);
