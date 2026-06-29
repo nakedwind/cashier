@@ -780,13 +780,15 @@ function renderAdminProducts() {
 async function adjustStock(i, delta) {
   const p = products[i];
   if (p.unlimited) return;
-  const newStock = Math.max(0, p.stock + delta);
+  const cur = (p.stock == null || isNaN(p.stock)) ? 0 : Number(p.stock);
+  const newStock = Math.max(0, cur + delta);
   try {
-    await apiPost({ action: 'updateProduct', rowNum: p.rowNum, product: { name: p.name, price: p.price, category: p.category, active: p.active, stock: newStock, unlimited: false } });
+    await apiPost({ action: 'updateProduct', rowNum: p.rowNum, product: { name: p.name, price: p.price, category: p.category || '一般', active: true, stock: newStock, unlimited: false } });
     p.stock = newStock;
     renderAdminProducts();
+    showToast('庫存已更新');
   } catch {
-    showToast('更新失敗', true);
+    showToast('更新失敗，請確認 Apps Script 已更新', true);
   }
 }
 
