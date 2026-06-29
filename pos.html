@@ -59,6 +59,12 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #111827; c
 }
 .product-btn:active:not(:disabled) { filter: brightness(1.25); }
 .product-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.product-btn.pop { animation: btnPop 0.18s ease; }
+@keyframes btnPop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(0.88); }
+  100% { transform: scale(1); }
+}
 /* 分類色票 */
 .cat-0 { background: #134e35; border-color: #34d399; }
 .cat-1 { background: #1e2a6e; border-color: #818cf8; }
@@ -505,7 +511,7 @@ function renderProducts() {
       const btn = document.createElement('button');
       btn.className = `product-btn cat-${ci}`; btn.disabled = out;
       btn.innerHTML = `<span class="pname">${esc(p.name)}</span><span class="pprice">$${p.price}</span>${stockBadge(p)}`;
-      if (!out) btn.onclick = () => addToCart(p);
+      if (!out) btn.onclick = () => addToCart(p, btn);
       grid.appendChild(btn);
     });
     area.appendChild(grid);
@@ -516,7 +522,24 @@ function renderProducts() {
 // ══════════════════════════════════════════════════════════
 //  購物車
 // ══════════════════════════════════════════════════════════
-function addToCart(p) {
+// 音效（Web Audio API，不需外部檔案）
+const _ac = new (window.AudioContext || window.webkitAudioContext)();
+function playClick() {
+  try {
+    const o = _ac.createOscillator();
+    const g = _ac.createGain();
+    o.connect(g); g.connect(_ac.destination);
+    o.type = 'sine';
+    o.frequency.setValueAtTime(880, _ac.currentTime);
+    o.frequency.exponentialRampToValueAtTime(440, _ac.currentTime + 0.08);
+    g.gain.setValueAtTime(0.25, _ac.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, _ac.currentTime + 0.12);
+    o.start(_ac.currentTime);
+    o.stop(_ac.currentTime + 0.12);
+  } catch {}
+}
+
+function addToCart(p, btnEl) {
   const found = CART.find(c => c.id === p.id);
   if (found) {
     if (!p.unlimited && found.qty >= p.stock) { showToast(`「${p.name}」庫存只剩 ${p.stock} 個`, true); return; }
@@ -524,6 +547,13 @@ function addToCart(p) {
   } else {
     CART.push({ id: p.id, name: p.name, price: Number(p.price), qty: 1, unlimited: p.unlimited, stock: p.stock, isGift: false });
   }
+  // 動畫
+  if (btnEl) {
+    btnEl.classList.remove('pop');
+    void btnEl.offsetWidth;
+    btnEl.classList.add('pop');
+  }
+  playClick();
   renderCart();
 }
 
